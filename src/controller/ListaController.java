@@ -15,6 +15,13 @@ public class ListaController{
 	}
 	
 	public void adicionar() {
+		System.out.println("Insira o valor para inserção: ");
+		int valor = sc.nextInt();
+		
+		lista.append(valor);
+	}
+	
+	public void adicionarPos() {
 		System.out.println("Insira a posição para inserção: ");
 		int index = sc.nextInt();
 		System.out.println("Insira o valor para inserção: ");
@@ -37,6 +44,11 @@ public class ListaController{
 		No<Integer> item = lista.get(index);
 		
 		System.out.println("Valor buscado: " + item.getValor());
+	}
+	
+	public void inverter(){
+		lista.inverter();
+		System.out.println("Lista Invertida!");
 	}
 	
 	public void imprimir() {

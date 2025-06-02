@@ -4,6 +4,20 @@ import model.No;
 
 public class ListaEncadeadaSimples<T>{
 	private No<T> inicio = null;
+	private No<T> fim = null;
+	
+	public void append(T elemento) {
+		No<T> novo = new No<T>(elemento);
+		
+		if(this.inicio == null) {
+			this.inicio = novo;
+			this.fim = novo;
+		}
+		else {
+			this.fim.setProximo(novo);
+			this.fim = novo;
+		}
+	}
 	
 	public No<T> get(int index) throws IllegalArgumentException{
 		int i = 0;
@@ -18,6 +32,7 @@ public class ListaEncadeadaSimples<T>{
 			}
 			buffer = buffer.getProximo();			
 		}
+		
 		if(i < index){
 			throw new IllegalArgumentException("O índice informado não existe");
 		}
@@ -29,6 +44,7 @@ public class ListaEncadeadaSimples<T>{
 		
 		if(this.inicio == null) {
 			this.inicio = novo;
+			this.fim = novo;
 		}
 		else {
 			if(index == 0){
@@ -42,6 +58,7 @@ public class ListaEncadeadaSimples<T>{
 				
 				if(proximo == null) {
 					item.setProximo(novo);
+					this.fim = novo;
 				}
 				else {
 					item.setProximo(novo);
@@ -72,6 +89,38 @@ public class ListaEncadeadaSimples<T>{
 			item.setProximo(null);
 			item.setValor(null);
 		}
+	}
+	
+	public void inverter() {
+		No<T> inicio = this.inicio;
+		No<T> fim = this.fim;
+		
+		int index = 0;
+		
+		while(inicio.getProximo() != null) {
+			inicio = inicio.getProximo();
+			index++;
+		}
+				
+		No<T> buffer = this.fim;
+		
+		for(int i = index; i >= 0; i--) {
+			if(i == 0) {
+				buffer.setProximo(null);
+				fim = buffer;
+				break;
+			}
+				
+			buffer.setProximo(this.get(i - 1));
+			
+			if(i == index) {
+				inicio = buffer;
+			}
+			
+			buffer = buffer.getProximo();
+		}
+		this.inicio = inicio;
+		this.fim = fim;
 	}
 	
 	@Override public String toString(){
